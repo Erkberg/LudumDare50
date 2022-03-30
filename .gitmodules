@@ -1,0 +1,3 @@
+[submodule "LudumDare50/Assets/Plugins/UnityLibrary"]
+	path = LudumDare50/Assets/Plugins/UnityLibrary
+	url = https://github.com/Erkberg/UnityLibrary.git
