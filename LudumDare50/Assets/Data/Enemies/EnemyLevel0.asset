@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyLevel0
   m_EditorClassIdentifier: 
   level: 0
-  attackTypes: 000000000100000002000000
+  attackTypes: 01000000
   health: 100
   damagePerAttack: 20
   endurance: 100

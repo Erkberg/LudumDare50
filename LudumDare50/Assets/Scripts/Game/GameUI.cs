@@ -8,11 +8,12 @@ namespace LudumDare50
 {
     public class GameUI : MonoBehaviour
     {
-        public TextMeshProUGUI levelText;
+        public TextMeshProUGUI storyText;
         public TextMeshProUGUI perfectText;
         public GameObject titleScreen;
         public GameObject tutorialScreen;
         public List<PlayerStateButton> playerStateButtons;
+        public List<TextById> storyTexts;
 
         public void OnPlayerStateChanged(PlayerState state)
         {
@@ -35,9 +36,9 @@ namespace LudumDare50
             }
         }
 
-        public void SetLevel(int level)
+        public void SetStoryTextByLevel(int level)
         {
-            levelText.text = level.ToString();
+            storyText.text = storyTexts.Find(x => x.id == level).text;
         }
 
         public void OnPerfectAction(PlayerState state)

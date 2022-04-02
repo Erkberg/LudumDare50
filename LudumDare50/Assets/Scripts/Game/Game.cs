@@ -67,8 +67,9 @@ namespace LudumDare50
             cam.SetMoveSpeed(moveSpeed);
             yield return new WaitUntil(() => player.transform.position.x >= nextPlayerPositionX);
             player.SetMoveSpeed(0f);
+            player.ChangeState(0);
             cam.SetMoveSpeed(0f);
-            ui.SetLevel(state.enemyLevel);
+            ui.SetStoryTextByLevel(state.enemyLevel);
 
             currentEnemy = enemy;
             enemy.isActive = true;
