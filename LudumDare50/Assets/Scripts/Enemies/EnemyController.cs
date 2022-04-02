@@ -58,16 +58,18 @@ namespace LudumDare50
             enemyAnimation.SetState((int)attackType + 1);
             yield return new WaitForSeconds(0.67f);
             //Debug.Log(gameObject.name + " attacks with type " + attackType);
-            Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
+            bool perfectDodge = Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
             yield return new WaitForSeconds(0.33f);
-            endurance.ChangeEndurance(-stats.endurancePerAction);
+            float enduranceDrain = perfectDodge ? stats.endurancePerAction * 2 : stats.endurancePerAction;
+            endurance.ChangeEndurance(-enduranceDrain);
             currentState = EnemyState.None;
             enemyAnimation.SetState(0);
         }
 
-        public void OnGettingAttacked()
+        public void OnGettingAttacked(bool perfectAttack)
         {
-            health.ChangeHealth(-20f);
+            float healthDrain = perfectAttack ? stats.damagePerAttack * 2 : stats.damagePerAttack;
+            health.ChangeHealth(-healthDrain);
         }
 
         private void OnDeath()

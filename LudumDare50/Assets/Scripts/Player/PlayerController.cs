@@ -16,6 +16,8 @@ namespace LudumDare50
         private GameInput input;
         private float durationInCurrentState = 0f;
         private float moveSpeed;
+        private bool perfectActionPossible;
+        private bool perfectAttack;
 
         private void Awake()
         {
@@ -46,6 +48,11 @@ namespace LudumDare50
             if(input.GetAttackDown())
             {
                 ChangeState(1);
+
+                if (perfectActionPossible)
+                {
+                    perfectAttack = true;                    
+                }                    
             }
             else if (input.GetDefendDown())
             {
@@ -92,18 +99,41 @@ namespace LudumDare50
         {
             if (currentState == PlayerState.Attack)
                 StartCoroutine(AttackSequence());
-            yield return new WaitForSeconds(GetDataByState(currentState).duration);
+            PlayerStateData stateData = GetDataByState(currentState);
+            StartCoroutine(PerfectActionCheckSequence(stateData));
+            yield return new WaitForSeconds(stateData.duration);
             ChangeState(0);
         }
 
-        public void OnGettingAttacked(AttackType attackType, float damage)
+        private IEnumerator PerfectActionCheckSequence(PlayerStateData stateData)
+        {
+            yield return new WaitForSeconds(stateData.durationTillPerfect);
+            perfectActionPossible = true;
+            yield return new WaitForSeconds(stateData.perfectDuration);
+            perfectActionPossible = false;
+        }
+
+        // returns perfect action
+        public bool OnGettingAttacked(AttackType attackType, float damage)
         {
             bool dodged = (attackType == AttackType.Low && currentState == PlayerState.Jump) ||
                 (attackType == AttackType.Mid && currentState == PlayerState.Defend) ||
                 (attackType == AttackType.High && currentState == PlayerState.Duck);
 
             if(!dodged)
-                health.ChangeHealth(-damage);
+            {
+                health.ChangeHealth(-damage);                
+            }
+            else
+            {
+                if (perfectActionPossible)
+                {
+                    Game.inst.ui.OnPerfectAction(currentState);
+                    return true;
+                }                    
+            }
+
+            return false;
         }
 
         private IEnumerator AttackSequence()
@@ -114,7 +144,12 @@ namespace LudumDare50
 
         private void Attack()
         {
-            Game.inst.currentEnemy.OnGettingAttacked();
+            Game.inst.currentEnemy.OnGettingAttacked(perfectAttack);
+            if (perfectAttack)
+            {
+                perfectAttack = false;
+                Game.inst.ui.OnPerfectAction(PlayerState.Attack);
+            }            
         }
 
         private void OnDeath()
