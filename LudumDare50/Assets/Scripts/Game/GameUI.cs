@@ -13,8 +13,32 @@ namespace LudumDare50
         public GameObject titleScreen;
         public GameObject tutorialScreen;
         public GameObject endScreen;
+        public GameObject pauseScreen;
         public List<PlayerStateButton> playerStateButtons;
         public List<TextById> storyTexts;
+
+        private void Update()
+        {
+            if (Game.inst.input.GetMenuDown())
+                CheckTogglePauseScreen();
+        }
+
+        private void CheckTogglePauseScreen()
+        {
+            if (titleScreen.activeSelf || endScreen.activeSelf || tutorialScreen.activeSelf)
+                return;
+
+            if(pauseScreen.activeSelf)
+            {
+                pauseScreen.SetActive(false);
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                pauseScreen.SetActive(true);
+                Time.timeScale = 0f;
+            }
+        }
 
         public void OnPlayerStateChanged(PlayerState state)
         {
