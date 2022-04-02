@@ -9,10 +9,14 @@ namespace LudumDare50
         public Animator animator;
 
         private const string StateIntName = "state";
+        private const string StateChangeTriggerName = "stateChange";
 
         public void SetState(int stateId)
         {
             animator.SetInteger(StateIntName, stateId);
+
+            if (stateId != 0)
+                animator.SetTrigger(StateChangeTriggerName);
         }
     }
 }

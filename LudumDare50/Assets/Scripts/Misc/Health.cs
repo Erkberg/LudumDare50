@@ -39,7 +39,7 @@ namespace LudumDare50
             UpdateHealthUI();
 
             if (amount < 0f)
-                Game.inst.screenshake.StartShake();
+                Game.inst.cam.screenshake.StartShake(amount / 100f, 0.1f);
         }
 
         public void UpdateHealthUI()

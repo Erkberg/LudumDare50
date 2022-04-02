@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ErksUnityLibrary;
 
 namespace LudumDare50
 {
@@ -14,6 +15,7 @@ namespace LudumDare50
 
         private GameInput input;
         private float durationInCurrentState = 0f;
+        private float moveSpeed;
 
         private void Awake()
         {
@@ -22,9 +24,21 @@ namespace LudumDare50
         }
 
         private void Update()
+        {   
+            if (moveSpeed.IsApproxEqual(0f))
+            {                
+                durationInCurrentState += Time.deltaTime;
+                CheckInput();
+            }      
+            else
+            {
+                transform.AddPositionX(moveSpeed * Time.deltaTime);
+            }
+        }
+
+        public void SetMoveSpeed(float speed)
         {
-            durationInCurrentState += Time.deltaTime;
-            CheckInput();
+            moveSpeed = speed;
         }
 
         private void CheckInput()

@@ -14,12 +14,20 @@ namespace LudumDare50
         public GameState state;
         public GameUI ui;
         public PlayerController player;
+        public EnemyController enemyPrefab;
         public EnemyController currentEnemy;
-        public Screenshake screenshake;
+        public Cam cam;
+        public Transform worldHolder;
 
         private void Awake()
         {
             inst = this;
+            OnGameStarted();
+        }
+
+        public void OnGameStarted()
+        {
+            StartCoroutine(GoToNextEnemySequence());
         }
 
         public void OnPlayerDeath()
@@ -40,6 +48,29 @@ namespace LudumDare50
         public void NextEnemy()
         {
             state.enemyLevel++;
+            StartCoroutine(GoToNextEnemySequence());
+        }
+
+        private IEnumerator GoToNextEnemySequence()
+        {     
+            // Spawn next enemy
+            float nextEnemyPositionX = (state.enemyLevel + 1) * 12;
+            Vector3 nextEnemyPosition = new Vector3(nextEnemyPositionX, 0f, 0f);
+            EnemyController enemy = Instantiate(enemyPrefab, nextEnemyPosition, Quaternion.identity, worldHolder);
+            enemy.InitWithStats(state.GetNextEnemyStats());
+            currentEnemy = enemy;
+
+            // Move player and camera
+            float nextPlayerPositionX = nextEnemyPositionX - 4f;
+            float moveSpeed = 4f;
+            player.SetMoveSpeed(moveSpeed);
+            cam.SetMoveSpeed(moveSpeed);
+            yield return new WaitUntil(() => player.transform.position.x >= nextPlayerPositionX);
+            player.SetMoveSpeed(0f);
+            cam.SetMoveSpeed(0f);
+            ui.SetLevel(state.enemyLevel);
+
+            enemy.isActive = true;
         }
     }
 }

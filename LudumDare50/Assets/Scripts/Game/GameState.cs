@@ -8,5 +8,10 @@ namespace LudumDare50
     {
         public int enemyLevel = 0;
         public List<EnemyStats> enemyStats;
+
+        public EnemyStats GetNextEnemyStats()
+        {
+            return enemyStats.Find(x => x.level == enemyLevel);
+        }
     }
 }

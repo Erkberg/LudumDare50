@@ -7,6 +7,7 @@ namespace LudumDare50
 {
     public class EnemyController : MonoBehaviour
     {
+        public bool isActive;
         public EnemyState currentState;
         public AttackType currentAttackType;
         public EnemyStats stats;
@@ -27,11 +28,12 @@ namespace LudumDare50
             this.stats = stats;
             health.SetMaxHealth(stats.health);
             endurance.SetMaxEndurance(stats.endurance);
+            gameObject.name = "Enemy_" + stats.level;
         }
 
         private void Update()
         {
-            if(currentState == EnemyState.None)
+            if(currentState == EnemyState.None && isActive)
             {
                 Timing.AddTimeAndCheckMax(ref actionTimePassed, stats.actionDelay, Time.deltaTime, TriggerAction);
             }            
@@ -55,6 +57,7 @@ namespace LudumDare50
             AttackType attackType = stats.attackTypes.GetRandomItem();
             enemyAnimation.SetState((int)attackType + 1);
             yield return new WaitForSeconds(0.67f);
+            //Debug.Log(gameObject.name + " attacks with type " + attackType);
             Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
             yield return new WaitForSeconds(0.33f);
             endurance.ChangeEndurance(-stats.endurancePerAction);
