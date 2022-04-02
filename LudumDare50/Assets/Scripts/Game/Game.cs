@@ -11,6 +11,7 @@ namespace LudumDare50
 
         public GameInput input;
         public GameState state;
+        public GameUI ui;
         public PlayerController player;
         public EnemyController currentEnemy;
 

@@ -59,6 +59,7 @@ namespace LudumDare50
                 currentState = newState;
                 durationInCurrentState = 0f;
                 playerAnimation.SetState(stateId);
+                Game.inst.ui.OnPlayerStateChanged(currentState);
 
                 if(stateId != 0)
                     StartCoroutine(StateChangeSequence());

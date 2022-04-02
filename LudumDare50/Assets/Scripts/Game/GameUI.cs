@@ -6,16 +6,27 @@ namespace LudumDare50
 {
     public class GameUI : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public List<PlayerStateButton> playerStateButtons;
+
+        public void OnPlayerStateChanged(PlayerState state)
         {
-        
+            if(state == PlayerState.None)
+            {
+                SetAllPlayerStateButtonsInteractable(true);
+            }
+            else
+            {
+                SetAllPlayerStateButtonsInteractable(false);
+                playerStateButtons.Find(x => x.state == state).SetInteractable(true);
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        private void SetAllPlayerStateButtonsInteractable(bool interactable)
         {
-        
+            foreach(PlayerStateButton button in playerStateButtons)
+            {
+                button.SetInteractable(interactable);
+            }
         }
     }
 }
