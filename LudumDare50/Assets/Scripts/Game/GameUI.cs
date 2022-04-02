@@ -10,37 +10,9 @@ namespace LudumDare50
     {
         public TextMeshProUGUI storyText;
         public TextMeshProUGUI perfectText;
-        public GameObject titleScreen;
-        public GameObject tutorialScreen;
-        public GameObject endScreen;
-        public GameObject pauseScreen;
+        public GameMenu menu;
         public List<PlayerStateButton> playerStateButtons;
         public List<TextById> storyTexts;
-
-        private bool tutorialFromPauseScreen;
-
-        private void Update()
-        {
-            if (Game.inst.input.GetMenuDown())
-                CheckTogglePauseScreen();
-        }
-
-        private void CheckTogglePauseScreen()
-        {
-            if (titleScreen.activeSelf || endScreen.activeSelf || tutorialScreen.activeSelf)
-                return;
-
-            if(pauseScreen.activeSelf)
-            {
-                pauseScreen.SetActive(false);
-                Time.timeScale = 1f;
-            }
-            else
-            {
-                pauseScreen.SetActive(true);
-                Time.timeScale = 0f;
-            }
-        }
 
         public void OnPlayerStateChanged(PlayerState state)
         {
@@ -80,45 +52,9 @@ namespace LudumDare50
             perfectText.gameObject.SetActive(false);
         }
 
-        public void OnStartButtonClicked()
-        {
-            titleScreen.SetActive(false);
-            Game.inst.OnGameStarted();
-        }
-
-        public void OnTutorialButtonClicked()
-        {
-            if(pauseScreen.activeSelf)
-            {
-                tutorialFromPauseScreen = true;
-                pauseScreen.SetActive(false);
-            }
-            else
-            {
-                tutorialFromPauseScreen = false;
-                titleScreen.SetActive(false);
-            }
-            
-            tutorialScreen.SetActive(true);
-        }
-
-        public void OnTutorialBackButtonClicked()
-        {
-            if(tutorialFromPauseScreen)
-            {
-                pauseScreen.SetActive(true);
-            }
-            else
-            {
-                titleScreen.SetActive(true);
-            }
-            
-            tutorialScreen.SetActive(false);
-        }
-
         public void OnGameEnd()
         {
-            endScreen.SetActive(true);
+            menu.Open(GameMenu.State.End);
         }
 
         public void SetStoryTextByEnding(GameState.EndState endState)
@@ -148,17 +84,6 @@ namespace LudumDare50
         public void ClearStoryText()
         {
             storyText.text = string.Empty;
-        }
-
-        public void OnPauseScreenResumeButtonClicked()
-        {
-            pauseScreen.SetActive(false);
-            Time.timeScale = 1f;
-        }
-
-        public void OnQuitButtonClicked()
-        {
-            Application.Quit();
         }
     }
 }
