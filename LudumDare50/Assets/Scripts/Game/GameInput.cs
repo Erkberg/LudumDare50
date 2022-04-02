@@ -53,5 +53,10 @@ namespace LudumDare50
         {
             return controls.Player.Duck.WasPressedThisFrame();
         }
+
+        public bool GetCheat()
+        {
+            return controls.Player.Cheat.IsPressed();
+        }
     }
 }

@@ -12,9 +12,10 @@ namespace LudumDare50
             { AttackType.Low, AttackType.Mid, AttackType.High };
         public float health = 100f;
         public float damagePerAttack = 20f;
+        public float damageTaken = 20f;
         public float endurance = 100f;
-        public float endurancePerAction = 5f;
+        public float endurancePerAction = 10f;
         public float actionDelay = 1f;
-        public float attackChance = 0.67f;
+        public int attackStreak = 1;
     }
 }

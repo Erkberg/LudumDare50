@@ -8,6 +8,7 @@ namespace LudumDare50
     public class TextById
     {
         public int id;
+        [TextArea]
         public string text;
     }
 }

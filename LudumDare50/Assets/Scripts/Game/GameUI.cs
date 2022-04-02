@@ -12,6 +12,7 @@ namespace LudumDare50
         public TextMeshProUGUI perfectText;
         public GameObject titleScreen;
         public GameObject tutorialScreen;
+        public GameObject endScreen;
         public List<PlayerStateButton> playerStateButtons;
         public List<TextById> storyTexts;
 
@@ -69,6 +70,40 @@ namespace LudumDare50
         {
             titleScreen.SetActive(true);
             tutorialScreen.SetActive(false);
+        }
+
+        public void OnGameEnd()
+        {
+            endScreen.SetActive(true);
+        }
+
+        public void SetStoryTextByEnding(GameState.EndState endState)
+        {
+            string text = string.Empty;
+            switch (endState)
+            {
+                case GameState.EndState.Pacifist:
+                    text = storyTexts.Find(x => x.id == 10).text;
+                    break;
+
+                case GameState.EndState.Attacked:
+                    text = storyTexts.Find(x => x.id == 11).text;
+                    break;
+
+                case GameState.EndState.Killed:
+                    text = storyTexts.Find(x => x.id == 12).text;
+                    break;
+
+                case GameState.EndState.KilledAll:
+                    text = storyTexts.Find(x => x.id == 13).text;
+                    break;
+            }
+            storyText.text = text;
+        }
+
+        public void ClearStoryText()
+        {
+            storyText.text = string.Empty;
         }
 
         public void OnQuitButtonClicked()

@@ -6,15 +6,18 @@ namespace LudumDare50
 {
     public class GameState : MonoBehaviour
     {
-        public int enemyLevel = 0;
+        public int enemyLevel;
         public List<EnemyStats> enemyStats;
         public EndState endState;
-        
+
+        private int enemiesKilled;
+
         public enum EndState
         {
             Pacifist,
             Attacked,
-            Killed
+            Killed,
+            KilledAll
         }
 
         public void OnEnemyAttacked()
@@ -26,11 +29,20 @@ namespace LudumDare50
         public void OnEnemyKilled()
         {
             endState = EndState.Killed;
+            enemiesKilled++;
+
+            if (enemiesKilled == enemyStats.Count)
+                endState = EndState.KilledAll;
         }
 
         public EnemyStats GetNextEnemyStats()
         {
             return enemyStats.Find(x => x.level == enemyLevel);
+        }
+
+        public bool LastEnemyKilled()
+        {
+            return enemyLevel >= enemyStats.Count;
         }
     }
 }

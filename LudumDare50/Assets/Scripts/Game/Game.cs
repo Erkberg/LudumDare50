@@ -35,6 +35,11 @@ namespace LudumDare50
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        public void OnRestartButtonPressed()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         public void OnEnemyDeath()
         {
             state.OnEnemyKilled();
@@ -49,7 +54,11 @@ namespace LudumDare50
         public void NextEnemy()
         {
             state.enemyLevel++;
-            StartCoroutine(GoToNextEnemySequence());
+
+            if (state.LastEnemyKilled())
+                StartCoroutine(EndSequence());
+            else
+                StartCoroutine(GoToNextEnemySequence());
         }
 
         private IEnumerator GoToNextEnemySequence()
@@ -73,6 +82,20 @@ namespace LudumDare50
 
             currentEnemy = enemy;
             enemy.isActive = true;
+        }
+
+        private IEnumerator EndSequence()
+        {
+            float moveSpeed = 2f;
+            player.SetMoveSpeed(moveSpeed);
+            cam.SetMoveSpeed(moveSpeed);
+            ui.ClearStoryText();
+            yield return new WaitForSeconds(2f);
+            ui.SetStoryTextByEnding(state.endState);
+            yield return new WaitForSeconds(6f);
+            player.SetMoveSpeed(0f);
+            cam.SetMoveSpeed(0f);
+            ui.OnGameEnd();
         }
     }
 }

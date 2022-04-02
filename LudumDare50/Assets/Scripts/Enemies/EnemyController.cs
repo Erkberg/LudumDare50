@@ -15,7 +15,10 @@ namespace LudumDare50
         public Health health;
         public Endurance endurance;
 
-        private float actionTimePassed = 0f;
+        private float actionTimePassed;
+        private int attackStreak;
+        private float idleWaitTime = 1f;
+        private bool isIdle;
 
         private void Awake()
         {
@@ -35,19 +38,30 @@ namespace LudumDare50
         {
             if(currentState == EnemyState.None && isActive)
             {
-                Timing.AddTimeAndCheckMax(ref actionTimePassed, stats.actionDelay, Time.deltaTime, TriggerAction);
+                
+                if (attackStreak < stats.attackStreak)
+                {
+                    Timing.AddTimeAndCheckMax(ref actionTimePassed, stats.actionDelay, Time.deltaTime, Attack);
+                }                    
+                else
+                {
+                    if (!isIdle)
+                        StartCoroutine(IdleSequence());
+                }
             }            
         }
 
-        private void TriggerAction()
+        private IEnumerator IdleSequence()
         {
-            actionTimePassed = 0f;
-            if(Random.value < stats.attackChance)
-                Attack();
+            isIdle = true;
+            yield return new WaitForSeconds(idleWaitTime);
+            isIdle = false;
+            attackStreak = 0;
         }
 
         private void Attack()
-        {            
+        {
+            actionTimePassed = 0f;
             StartCoroutine(AttackSequence());            
         }
 
@@ -60,6 +74,7 @@ namespace LudumDare50
             //Debug.Log(gameObject.name + " attacks with type " + attackType);
             bool perfectDodge = Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
             yield return new WaitForSeconds(0.33f);
+            attackStreak++;
             float enduranceDrain = perfectDodge ? stats.endurancePerAction * 2 : stats.endurancePerAction;
             endurance.ChangeEndurance(-enduranceDrain);
             currentState = EnemyState.None;
@@ -68,7 +83,7 @@ namespace LudumDare50
 
         public void OnGettingAttacked(bool perfectAttack)
         {
-            float healthDrain = perfectAttack ? stats.damagePerAttack * 2 : stats.damagePerAttack;
+            float healthDrain = perfectAttack ? stats.damageTaken * 2 : stats.damageTaken;
             health.ChangeHealth(-healthDrain);
             Game.inst.state.OnEnemyAttacked();
         }

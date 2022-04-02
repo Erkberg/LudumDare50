@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 3
   attackTypes: 000000000100000002000000
-  health: 160
+  health: 100
   damagePerAttack: 20
-  endurance: 100
+  endurance: 300
   endurancePerAction: 10
-  actionDelay: 0.6
-  attackChance: 0.67
+  actionDelay: 0.25
+  attackStreak: 4
