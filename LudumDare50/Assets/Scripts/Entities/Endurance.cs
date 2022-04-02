@@ -19,6 +19,12 @@ namespace LudumDare50
             currentEndurance = maxEndurance;
         }
 
+        public void SetMaxEndurance(float max)
+        {
+            maxEndurance = max;
+            currentEndurance = max;
+        }
+
         public void ChangeEndurance(float amount)
         {
             currentEndurance += amount;

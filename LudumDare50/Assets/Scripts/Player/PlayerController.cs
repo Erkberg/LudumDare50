@@ -74,6 +74,16 @@ namespace LudumDare50
             ChangeState(0);
         }
 
+        public void OnGettingAttacked(AttackType attackType, float damage)
+        {
+            bool dodged = (attackType == AttackType.Low && currentState == PlayerState.Jump) ||
+                (attackType == AttackType.Mid && currentState == PlayerState.Defend) ||
+                (attackType == AttackType.High && currentState == PlayerState.Duck);
+
+            if(!dodged)
+                health.ChangeHealth(-damage);
+        }
+
         private IEnumerator AttackSequence()
         {
             yield return new WaitForSeconds(GetDataByState(currentState).durationTillPerfect);

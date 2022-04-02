@@ -6,16 +6,13 @@ namespace LudumDare50
 {
     public class EnemyAnimation : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        public Animator animator;
 
-        // Update is called once per frame
-        void Update()
+        private const string StateIntName = "state";
+
+        public void SetState(int stateId)
         {
-        
+            animator.SetInteger(StateIntName, stateId);
         }
     }
 }

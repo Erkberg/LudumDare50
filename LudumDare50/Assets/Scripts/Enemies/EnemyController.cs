@@ -1,29 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ErksUnityLibrary;
 
 namespace LudumDare50
 {
     public class EnemyController : MonoBehaviour
     {
-        public State currentState;
+        public EnemyState currentState;
+        public AttackType currentAttackType;
+        public EnemyStats stats;
         public EnemyAnimation enemyAnimation;
         public Health health;
         public Endurance endurance;
 
-        public enum State
-        {
-            None,
-            Attack,
-            Defend,
-            Jump,
-            Duck
-        }
+        private float actionTimePassed = 0f;
 
         private void Awake()
         {
             health.onDeath += OnDeath;
             endurance.onExhaust += OnExhaust;
+        }
+
+        public void InitWithStats(EnemyStats stats)
+        {
+            this.stats = stats;
+            health.SetMaxHealth(stats.health);
+            endurance.SetMaxEndurance(stats.endurance);
+        }
+
+        private void Update()
+        {
+            if(currentState == EnemyState.None)
+            {
+                Timing.AddTimeAndCheckMax(ref actionTimePassed, stats.actionDelay, Time.deltaTime, TriggerAction);
+            }            
+        }
+
+        private void TriggerAction()
+        {
+            actionTimePassed = 0f;
+            if(Random.value < stats.attackChance)
+                Attack();
+        }
+
+        private void Attack()
+        {            
+            StartCoroutine(AttackSequence());            
+        }
+
+        private IEnumerator AttackSequence()
+        {
+            currentState = EnemyState.Attack;
+            AttackType attackType = stats.attackTypes.GetRandomItem();
+            enemyAnimation.SetState((int)attackType + 1);
+            yield return new WaitForSeconds(0.67f);
+            Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
+            yield return new WaitForSeconds(0.33f);
+            endurance.ChangeEndurance(-stats.endurancePerAction);
+            currentState = EnemyState.None;
+            enemyAnimation.SetState(0);
         }
 
         public void OnGettingAttacked()
@@ -42,6 +78,7 @@ namespace LudumDare50
         {
             Debug.Log("enemy has exhausted");
             Game.inst.OnEnemyExhaust();
+            Destroy(gameObject);
         }
     }
 }

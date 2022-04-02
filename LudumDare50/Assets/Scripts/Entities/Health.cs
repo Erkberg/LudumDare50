@@ -19,6 +19,12 @@ namespace LudumDare50
             currentHealth = maxHealth;
         }
 
+        public void SetMaxHealth(float max)
+        {
+            maxHealth = max;
+            currentHealth = max;
+        }
+
         public void ChangeHealth(float amount)
         {
             currentHealth += amount;

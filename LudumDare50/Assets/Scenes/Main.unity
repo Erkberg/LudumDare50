@@ -1423,6 +1423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1010134443}
   - component: {fileID: 1010134447}
+  - component: {fileID: 1010134448}
   - component: {fileID: 1010134446}
   - component: {fileID: 1010134445}
   m_Layer: 0
@@ -1509,6 +1510,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a22af3ebee5c74ab4996e32fcddea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1010134448}
+--- !u!95 &1010134448
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010134442}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f68ffe09d2f8304b9899bfd7e5facd7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1010952665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2111,6 +2133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyLevel: 0
+  enemyStats:
+  - {fileID: 11400000, guid: 4c39a36d12ebdab43a5d21f63c15067d, type: 2}
 --- !u!114 &1329500693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2905,6 +2929,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  currentAttackType: 0
+  stats: {fileID: 11400000, guid: 4c39a36d12ebdab43a5d21f63c15067d, type: 2}
   enemyAnimation: {fileID: 1010134447}
   health: {fileID: 1170206234}
   endurance: {fileID: 1672099602}
