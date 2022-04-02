@@ -11,6 +11,8 @@ namespace LudumDare50
 
         public GameInput input;
         public GameState state;
+        public PlayerController player;
+        public EnemyController currentEnemy;
 
         private void Awake()
         {

@@ -26,10 +26,16 @@ namespace LudumDare50
             endurance.onExhaust += OnExhaust;
         }
 
+        public void OnGettingAttacked()
+        {
+            health.ChangeHealth(-20f);
+        }
+
         private void OnDeath()
         {
             Debug.Log("enemy has died");
             Game.inst.OnEnemyDeath();
+            Destroy(gameObject);
         }
 
         private void OnExhaust()

@@ -6,21 +6,14 @@ namespace LudumDare50
 {
     public class PlayerController : MonoBehaviour
     {
-        public State currentState;
+        public PlayerState currentState;
         public PlayerAnimation playerAnimation;
         public Health health;
         public Endurance endurance;
+        public List<PlayerStateData> stateData;
 
         private GameInput input;
-
-        public enum State
-        {
-            None,
-            Attack,
-            Defend,
-            Jump,
-            Duck
-        }
+        private float durationInCurrentState = 0f;
 
         private void Awake()
         {
@@ -30,6 +23,7 @@ namespace LudumDare50
 
         private void Update()
         {
+            durationInCurrentState += Time.deltaTime;
             CheckInput();
         }
 
@@ -55,13 +49,50 @@ namespace LudumDare50
 
         public void ChangeState(int stateId)
         {
-            currentState = (State)stateId;
+            if (!Game.inst.currentEnemy && stateId != 0)
+                return;
+
+            PlayerState newState = (PlayerState)stateId;
+
+            if(currentState == PlayerState.None || (currentState != PlayerState.None && stateId == 0))
+            {
+                currentState = newState;
+                durationInCurrentState = 0f;
+                playerAnimation.SetState(stateId);
+
+                if(stateId != 0)
+                    StartCoroutine(StateChangeSequence());
+            }            
+        }
+
+        private IEnumerator StateChangeSequence()
+        {
+            if (currentState == PlayerState.Attack)
+                StartCoroutine(AttackSequence());
+            yield return new WaitForSeconds(GetDataByState(currentState).duration);
+            ChangeState(0);
+        }
+
+        private IEnumerator AttackSequence()
+        {
+            yield return new WaitForSeconds(GetDataByState(currentState).durationTillPerfect);
+            Attack();
+        }
+
+        private void Attack()
+        {
+            Game.inst.currentEnemy.OnGettingAttacked();
         }
 
         private void OnDeath()
         {
             Debug.Log("you have died");
             Game.inst.OnPlayerDeath();
+        }
+
+        private PlayerStateData GetDataByState(PlayerState state)
+        {
+            return stateData.Find(x => x.state == state);
         }
     }
 }
