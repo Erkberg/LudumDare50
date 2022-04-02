@@ -17,6 +17,8 @@ namespace LudumDare50
         public List<PlayerStateButton> playerStateButtons;
         public List<TextById> storyTexts;
 
+        private bool tutorialFromPauseScreen;
+
         private void Update()
         {
             if (Game.inst.input.GetMenuDown())
@@ -86,13 +88,31 @@ namespace LudumDare50
 
         public void OnTutorialButtonClicked()
         {
-            titleScreen.SetActive(false);
+            if(pauseScreen.activeSelf)
+            {
+                tutorialFromPauseScreen = true;
+                pauseScreen.SetActive(false);
+            }
+            else
+            {
+                tutorialFromPauseScreen = false;
+                titleScreen.SetActive(false);
+            }
+            
             tutorialScreen.SetActive(true);
         }
 
         public void OnTutorialBackButtonClicked()
         {
-            titleScreen.SetActive(true);
+            if(tutorialFromPauseScreen)
+            {
+                pauseScreen.SetActive(true);
+            }
+            else
+            {
+                titleScreen.SetActive(true);
+            }
+            
             tutorialScreen.SetActive(false);
         }
 
@@ -128,6 +148,12 @@ namespace LudumDare50
         public void ClearStoryText()
         {
             storyText.text = string.Empty;
+        }
+
+        public void OnPauseScreenResumeButtonClicked()
+        {
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1f;
         }
 
         public void OnQuitButtonClicked()
