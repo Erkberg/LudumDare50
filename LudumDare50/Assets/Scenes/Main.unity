@@ -2093,6 +2093,7 @@ MonoBehaviour:
   ui: {fileID: 1329500693}
   player: {fileID: 1446223475}
   currentEnemy: {fileID: 1758338101}
+  screenshake: {fileID: 963194229}
 --- !u!4 &1329500690
 Transform:
   m_ObjectHideFlags: 0

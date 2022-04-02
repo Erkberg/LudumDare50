@@ -37,6 +37,9 @@ namespace LudumDare50
             }
 
             UpdateHealthUI();
+
+            if (amount < 0f)
+                Game.inst.screenshake.StartShake();
         }
 
         public void UpdateHealthUI()

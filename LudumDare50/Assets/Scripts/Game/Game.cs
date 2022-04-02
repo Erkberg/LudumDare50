@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ErksUnityLibrary;
 
 namespace LudumDare50
 {
@@ -14,6 +15,7 @@ namespace LudumDare50
         public GameUI ui;
         public PlayerController player;
         public EnemyController currentEnemy;
+        public Screenshake screenshake;
 
         private void Awake()
         {
