@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LudumDare50
 {
@@ -9,10 +10,31 @@ namespace LudumDare50
         public static Game inst;
 
         public GameInput input;
+        public GameState state;
 
         private void Awake()
         {
             inst = this;
+        }
+
+        public void OnPlayerDeath()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void OnEnemyDeath()
+        {
+            NextEnemy();
+        }
+
+        public void OnEnemyExhaust()
+        {
+            NextEnemy();
+        }
+
+        public void NextEnemy()
+        {
+            state.enemyLevel++;
         }
     }
 }

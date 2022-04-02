@@ -7,6 +7,9 @@ namespace LudumDare50
     public class PlayerController : MonoBehaviour
     {
         public State currentState;
+        public PlayerAnimation playerAnimation;
+        public Health health;
+        public Endurance endurance;
 
         private GameInput input;
 
@@ -22,6 +25,7 @@ namespace LudumDare50
         private void Awake()
         {
             input = Game.inst.input;
+            health.onDeath += OnDeath;
         }
 
         private void Update()
@@ -52,6 +56,12 @@ namespace LudumDare50
         public void ChangeState(int stateId)
         {
             currentState = (State)stateId;
+        }
+
+        private void OnDeath()
+        {
+            Debug.Log("you have died");
+            Game.inst.OnPlayerDeath();
         }
     }
 }
