@@ -4749,18 +4749,22 @@ MonoBehaviour:
     duration: 1
     durationTillPerfect: 0.67
     perfectDuration: 0.1
+    durationTillCancelPossible: 0.7
   - state: 2
     duration: 0.5
     durationTillPerfect: 0
     perfectDuration: 0.1
+    durationTillCancelPossible: 0.33
   - state: 3
     duration: 0.5
     durationTillPerfect: 0
     perfectDuration: 0.1
+    durationTillCancelPossible: 0.33
   - state: 4
     duration: 0.5
     durationTillPerfect: 0
     perfectDuration: 0.1
+    durationTillCancelPossible: 0.33
 --- !u!1 &1476384471
 GameObject:
   m_ObjectHideFlags: 0

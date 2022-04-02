@@ -81,6 +81,7 @@ namespace LudumDare50
 
             if(CanChangeState(stateId))
             {
+                StopAllCoroutines();
                 currentState = newState;
                 durationInCurrentState = 0f;
                 playerAnimation.SetState(stateId);
@@ -95,7 +96,7 @@ namespace LudumDare50
         {
             bool switchToIdle = currentState != PlayerState.None && newStateId == 0;
             bool animationCancel = currentState != PlayerState.None && 
-                durationInCurrentState > GetDataByState(currentState).duration * 0.8f;
+                durationInCurrentState > GetDataByState(currentState).durationTillCancelPossible;
             return switchToIdle || animationCancel || currentState == PlayerState.None;
         }
 

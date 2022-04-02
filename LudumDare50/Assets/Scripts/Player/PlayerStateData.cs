@@ -11,5 +11,6 @@ namespace LudumDare50
         public float duration = 0.5f;
         public float durationTillPerfect = 0f;
         public float perfectDuration = 0.05f;
+        public float durationTillCancelPossible = 0.7f;
     }
 }
