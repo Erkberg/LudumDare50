@@ -8,6 +8,25 @@ namespace LudumDare50
     {
         public int enemyLevel = 0;
         public List<EnemyStats> enemyStats;
+        public EndState endState;
+        
+        public enum EndState
+        {
+            Pacifist,
+            Attacked,
+            Killed
+        }
+
+        public void OnEnemyAttacked()
+        {
+            if (endState == EndState.Pacifist)
+                endState = EndState.Attacked;
+        }
+
+        public void OnEnemyKilled()
+        {
+            endState = EndState.Killed;
+        }
 
         public EnemyStats GetNextEnemyStats()
         {

@@ -251,7 +251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 120}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66875604
@@ -274,9 +274,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A game by Erkberg
+  m_text: 'A game by Erik ''Erkberg'' Schulze
 
-    Created within 48h for Ludum Dare 50'
+    Created within 48h for Ludum Dare
+    50
+
+    <size=48>(Theme: "Delay the inevitable")'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2734,7 +2737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 320}
+  m_AnchoredPosition: {x: 0, y: 360}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1205918193
@@ -3255,6 +3258,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b829cf0b06abed94aa6dfa5fc3060aed, type: 2}
   - {fileID: 11400000, guid: 7cc4a63461e523e468eb755fcac290ea, type: 2}
   - {fileID: 11400000, guid: c56d2f0d6a981c84d94599881cfd61db, type: 2}
+  endState: 0
 --- !u!114 &1329500693
 MonoBehaviour:
   m_ObjectHideFlags: 0

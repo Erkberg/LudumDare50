@@ -37,6 +37,7 @@ namespace LudumDare50
 
         public void OnEnemyDeath()
         {
+            state.OnEnemyKilled();
             NextEnemy();
         }
 

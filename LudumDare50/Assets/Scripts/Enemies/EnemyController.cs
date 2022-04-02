@@ -70,6 +70,7 @@ namespace LudumDare50
         {
             float healthDrain = perfectAttack ? stats.damagePerAttack * 2 : stats.damagePerAttack;
             health.ChangeHealth(-healthDrain);
+            Game.inst.state.OnEnemyAttacked();
         }
 
         private void OnDeath()
