@@ -10,6 +10,8 @@ namespace LudumDare50
     {
         public TextMeshProUGUI levelText;
         public TextMeshProUGUI perfectText;
+        public GameObject titleScreen;
+        public GameObject tutorialScreen;
         public List<PlayerStateButton> playerStateButtons;
 
         public void OnPlayerStateChanged(PlayerState state)
@@ -48,6 +50,29 @@ namespace LudumDare50
             perfectText.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.33f);
             perfectText.gameObject.SetActive(false);
+        }
+
+        public void OnStartButtonClicked()
+        {
+            titleScreen.SetActive(false);
+            Game.inst.OnGameStarted();
+        }
+
+        public void OnTutorialButtonClicked()
+        {
+            titleScreen.SetActive(false);
+            tutorialScreen.SetActive(true);
+        }
+
+        public void OnTutorialBackButtonClicked()
+        {
+            titleScreen.SetActive(true);
+            tutorialScreen.SetActive(false);
+        }
+
+        public void OnQuitButtonClicked()
+        {
+            Application.Quit();
         }
     }
 }

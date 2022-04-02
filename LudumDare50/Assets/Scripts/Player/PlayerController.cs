@@ -7,6 +7,7 @@ namespace LudumDare50
 {
     public class PlayerController : MonoBehaviour
     {
+        public bool isActive;
         public PlayerState currentState;
         public PlayerAnimation playerAnimation;
         public Health health;
@@ -26,7 +27,10 @@ namespace LudumDare50
         }
 
         private void Update()
-        {   
+        {
+            if (!isActive)
+                return;
+
             if (moveSpeed.IsApproxEqual(0f))
             {                
                 durationInCurrentState += Time.deltaTime;

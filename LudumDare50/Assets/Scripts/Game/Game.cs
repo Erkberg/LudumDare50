@@ -22,11 +22,11 @@ namespace LudumDare50
         private void Awake()
         {
             inst = this;
-            OnGameStarted();
         }
 
         public void OnGameStarted()
         {
+            player.isActive = true;
             StartCoroutine(GoToNextEnemySequence());
         }
 
