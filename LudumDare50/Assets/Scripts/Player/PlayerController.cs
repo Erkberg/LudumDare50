@@ -68,7 +68,7 @@ namespace LudumDare50
 
             PlayerState newState = (PlayerState)stateId;
 
-            if(currentState == PlayerState.None || (currentState != PlayerState.None && stateId == 0))
+            if(CanChangeState(stateId))
             {
                 currentState = newState;
                 durationInCurrentState = 0f;
@@ -78,6 +78,14 @@ namespace LudumDare50
                 if(stateId != 0)
                     StartCoroutine(StateChangeSequence());
             }            
+        }
+
+        private bool CanChangeState(int newStateId)
+        {
+            bool switchToIdle = currentState != PlayerState.None && newStateId == 0;
+            bool animationCancel = currentState != PlayerState.None && 
+                durationInCurrentState > GetDataByState(currentState).duration * 0.8f;
+            return switchToIdle || animationCancel || currentState == PlayerState.None;
         }
 
         private IEnumerator StateChangeSequence()
