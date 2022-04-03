@@ -32,6 +32,14 @@ namespace LudumDare50
 
         public void OnPlayerDeath()
         {
+            StartCoroutine(DeathSequence());
+        }
+
+        private IEnumerator DeathSequence()
+        {
+            player.playerAnimation.SetState(6);
+            currentEnemy.isActive = false;
+            yield return new WaitForSeconds(2f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -74,6 +82,7 @@ namespace LudumDare50
             float nextPlayerPositionX = nextEnemyPositionX - 4f;
             float moveSpeed = 4f;
             player.SetMoveSpeed(moveSpeed);
+            player.playerAnimation.SetState(5);
             cam.SetMoveSpeed(moveSpeed);
             yield return new WaitUntil(() => player.transform.position.x >= nextPlayerPositionX);
             player.SetMoveSpeed(0f);
@@ -89,6 +98,7 @@ namespace LudumDare50
         {
             float moveSpeed = 2f;
             player.SetMoveSpeed(moveSpeed);
+            player.playerAnimation.SetState(5);
             cam.SetMoveSpeed(moveSpeed);
             ui.ClearStoryText();
             yield return new WaitForSeconds(2f);
