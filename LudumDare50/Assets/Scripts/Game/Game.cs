@@ -26,7 +26,7 @@ namespace LudumDare50
 
         public void OnGameStarted()
         {
-            player.isActive = true;
+            player.isActive = true;            
             StartCoroutine(GoToNextEnemySequence());
         }
 
@@ -62,7 +62,8 @@ namespace LudumDare50
         }
 
         private IEnumerator GoToNextEnemySequence()
-        {     
+        {
+            ui.ClearStoryText();
             // Spawn next enemy
             float nextEnemyPositionX = (state.enemyLevel + 1) * 12;
             Vector3 nextEnemyPosition = new Vector3(nextEnemyPositionX, 0f, 0f);

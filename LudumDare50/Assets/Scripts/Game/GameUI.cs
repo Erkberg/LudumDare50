@@ -8,6 +8,7 @@ namespace LudumDare50
 {
     public class GameUI : MonoBehaviour
     {
+        public GameObject storyTextBackground;
         public TextMeshProUGUI storyText;
         public TextMeshProUGUI perfectText;
         public GameMenu menu;
@@ -35,9 +36,17 @@ namespace LudumDare50
             }
         }
 
+        public void SetAllPlayerStateButtonsActive(bool active)
+        {
+            foreach (PlayerStateButton button in playerStateButtons)
+            {
+                button.gameObject.SetActive(active);
+            }
+        }
+
         public void SetStoryTextByLevel(int level)
         {
-            storyText.text = storyTexts.Find(x => x.id == level).text;
+            SetStoryText(storyTexts.Find(x => x.id == level).text);
         }
 
         public void OnPerfectAction(PlayerState state)
@@ -78,12 +87,19 @@ namespace LudumDare50
                     text = storyTexts.Find(x => x.id == 13).text;
                     break;
             }
-            storyText.text = text;
+            SetStoryText(text);
         }
 
         public void ClearStoryText()
         {
-            storyText.text = string.Empty;
+            SetStoryText(string.Empty);
+        }
+
+        private void SetStoryText(string s)
+        {
+            storyText.text = s;
+
+            storyTextBackground.SetActive(!s.Equals(string.Empty));
         }
     }
 }
