@@ -74,7 +74,7 @@ namespace LudumDare50
 
         public void ChangeState(int stateId)
         {
-            if (!Game.inst.currentEnemy && stateId != 0)
+            if ((!Game.inst.currentEnemy && stateId != 0))
                 return;
 
             PlayerState newState = (PlayerState)stateId;
@@ -85,6 +85,7 @@ namespace LudumDare50
                 currentState = newState;
                 durationInCurrentState = 0f;
                 playerAnimation.SetState(stateId);
+                //Debug.Log("change state to " + stateId);
                 Game.inst.ui.OnPlayerStateChanged(currentState);
 
                 if(stateId != 0)

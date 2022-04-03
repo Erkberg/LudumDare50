@@ -16,7 +16,8 @@ MonoBehaviour:
   attackTypes: 01000000
   health: 100
   damagePerAttack: 20
+  damageTaken: 20
   endurance: 100
   endurancePerAction: 10
   actionDelay: 1
-  attackChance: 0.67
+  attackStreak: 1

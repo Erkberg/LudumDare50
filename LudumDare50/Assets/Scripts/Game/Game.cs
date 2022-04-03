@@ -82,6 +82,7 @@ namespace LudumDare50
             float nextPlayerPositionX = nextEnemyPositionX - 4f;
             float moveSpeed = 4f;
             player.SetMoveSpeed(moveSpeed);
+            player.StopAllCoroutines();
             player.playerAnimation.SetState(5);
             cam.SetMoveSpeed(moveSpeed);
             yield return new WaitUntil(() => player.transform.position.x >= nextPlayerPositionX);
@@ -98,6 +99,7 @@ namespace LudumDare50
         {
             float moveSpeed = 2f;
             player.SetMoveSpeed(moveSpeed);
+            player.StopAllCoroutines();
             player.playerAnimation.SetState(5);
             cam.SetMoveSpeed(moveSpeed);
             ui.ClearStoryText();
