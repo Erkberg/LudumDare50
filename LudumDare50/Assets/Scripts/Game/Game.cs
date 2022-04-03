@@ -81,10 +81,11 @@ namespace LudumDare50
             // Move player and camera
             float nextPlayerPositionX = nextEnemyPositionX - 4f;
             float moveSpeed = 4f;
-            player.SetMoveSpeed(moveSpeed);
-            player.StopAllCoroutines();
+            player.SetMoveSpeed(moveSpeed);            
             player.playerAnimation.SetState(5);
             cam.SetMoveSpeed(moveSpeed);
+            yield return null;
+            player.Stop();
             yield return new WaitUntil(() => player.transform.position.x >= nextPlayerPositionX);
             player.SetMoveSpeed(0f);
             player.ChangeState(0);
@@ -97,12 +98,13 @@ namespace LudumDare50
 
         private IEnumerator EndSequence()
         {
-            float moveSpeed = 2f;
-            player.SetMoveSpeed(moveSpeed);
-            player.StopAllCoroutines();
+            float moveSpeed = 3.33f;
+            player.SetMoveSpeed(moveSpeed);            
             player.playerAnimation.SetState(5);
             cam.SetMoveSpeed(moveSpeed);
             ui.ClearStoryText();
+            yield return null;
+            player.Stop();
             yield return new WaitForSeconds(2f);
             ui.SetStoryTextByEnding(state.endState);
             yield return new WaitForSeconds(6f);

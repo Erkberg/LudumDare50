@@ -9,6 +9,8 @@ namespace LudumDare50
 {
     public class GameUI : MonoBehaviour
     {
+        public static bool bottomUiEnabled = true;
+
         public GameObject storyTextBackground;
         public TextMeshProUGUI storyText;
         public TextMeshProUGUI perfectText;
@@ -18,6 +20,15 @@ namespace LudumDare50
         public GameObject bottomUiHolder;
         public Image actionAvailableImage;
 
+        public GameObject textjd;
+        public GameObject textda;
+
+        private void Awake()
+        {
+            textda.SetActive(bottomUiEnabled);
+            textjd.SetActive(bottomUiEnabled);
+        }
+
         private void Update()
         {
             HandleActionImage();
@@ -25,6 +36,12 @@ namespace LudumDare50
 
         private void HandleActionImage()
         {
+            if(!bottomUiEnabled)
+            {
+                SetActionAvailableImageAlpha(0.0625f);
+                return;
+            }
+
             bool perfectAttackAvailable = Game.inst.player.IsPerfectAttackAvailable();            
             bool actionAvailable = Game.inst.player.IsActionAvailable();
             bool perfectDefenceAvailable = false;
@@ -45,6 +62,13 @@ namespace LudumDare50
             {
                 SetActionAvailableImageAlpha(0.0625f);
             }
+        }
+
+        public void OnIndicatorClicked()
+        {
+            bottomUiEnabled = !bottomUiEnabled;
+            textda.SetActive(bottomUiEnabled);
+            textjd.SetActive(bottomUiEnabled);
         }
 
         private void SetActionAvailableImageAlpha(float alpha)

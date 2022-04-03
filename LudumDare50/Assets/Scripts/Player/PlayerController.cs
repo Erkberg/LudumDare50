@@ -80,7 +80,7 @@ namespace LudumDare50
             if(CanChangeState(stateId))
             {
                 PlayerState newState = (PlayerState)stateId;
-                StopAllCoroutines();
+                Stop();
                 currentState = newState;
                 durationInCurrentState = 0f;
                 playerAnimation.SetState(stateId);
@@ -182,6 +182,14 @@ namespace LudumDare50
         public bool IsPerfectAttackAvailable()
         {
             return currentState == PlayerState.Attack && perfectActionPossible && Game.inst.currentEnemy;
+        }
+
+        public void Stop()
+        {
+            StopAllCoroutines();
+            perfectAttack = false;
+            perfectActionPossible = false;
+            durationInCurrentState = 0f;
         }
     }
 }

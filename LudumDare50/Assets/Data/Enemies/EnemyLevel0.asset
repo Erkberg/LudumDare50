@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   attackTypes: 01000000
-  health: 100
-  damagePerAttack: 25
-  damageTaken: 20
+  health: 75
+  damagePerAttack: 20
+  damageTaken: 25
   endurance: 100
   endurancePerAction: 10
   actionDelay: 1
