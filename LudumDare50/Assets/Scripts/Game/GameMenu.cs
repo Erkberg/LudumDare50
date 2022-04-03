@@ -17,6 +17,8 @@ namespace LudumDare50
 
         public TextMeshProUGUI startResumeText;
         public TextMeshProUGUI tutorialRestartText;
+        public TextMeshProUGUI volumeValueText;
+        public Slider volumeSlider;
 
         public static bool restart;
 
@@ -33,9 +35,12 @@ namespace LudumDare50
                 Open(State.Start);
             else
             {
-                restart = false;
+                restart = false;                
                 Game.inst.OnGameStarted();
-            }                
+            }
+
+            OnVolumeChanged(AudioListener.volume);
+            volumeSlider.value = AudioListener.volume;
         }
 
         private void Update()
@@ -116,6 +121,12 @@ namespace LudumDare50
         {
             Open(currentState);
             tutorialScreen.SetActive(false);
+        }
+
+        public void OnVolumeChanged(float value)
+        {
+            AudioListener.volume = value;
+            volumeValueText.text = $"{Mathf.RoundToInt(value * 100)} %";
         }
 
         public void OnQuitButtonClicked()
