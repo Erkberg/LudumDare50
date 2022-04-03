@@ -59,6 +59,31 @@ namespace LudumDare50
                 humanMeshRenderer.materials[1].SetColorA(1f - alpha);
                 yield return null;
             }
+
+            fadeAnimator.gameObject.SetActive(false);
+        }
+
+        public IEnumerator FadeToExhaustedHumanSequence()
+        {
+            fadeAnimator.gameObject.SetActive(true);
+            fadeAnimator.Play("metarig|Exhausted");
+            humanAnimator.gameObject.SetActive(true);
+            humanAnimator.Play("metarig|Exhausted");
+            humanMeshRenderer.materials[0].SetColorA(0f);
+            humanMeshRenderer.materials[1].SetColorA(0f);
+            
+            float alpha = 1f;
+            while (alpha > 0f)
+            {
+                alpha -= Time.deltaTime / 4f;
+                fadeMeshRenderer.materials[0].SetColorA(alpha);
+                fadeMeshRenderer.materials[1].SetColorA(alpha);
+                humanMeshRenderer.materials[0].SetColorA(1f - alpha);
+                humanMeshRenderer.materials[1].SetColorA(1f - alpha);
+                yield return null;
+            }
+
+            fadeAnimator.gameObject.SetActive(false);
         }
     }
 }

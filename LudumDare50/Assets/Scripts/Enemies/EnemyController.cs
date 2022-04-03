@@ -20,6 +20,8 @@ namespace LudumDare50
         private float idleWaitTime = 1f;
         private bool isIdle;
 
+        private float perfectMultiplier = 3f;
+
         private void Awake()
         {
             health.onDeath += OnDeath;
@@ -75,15 +77,15 @@ namespace LudumDare50
             bool perfectDodge = Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
             yield return new WaitForSeconds(0.33f);
             attackStreak++;
-            float enduranceDrain = perfectDodge ? stats.endurancePerAction * 2 : stats.endurancePerAction;
-            endurance.ChangeEndurance(-enduranceDrain);
+            float enduranceDrain = perfectDodge ? stats.endurancePerAction * perfectMultiplier : stats.endurancePerAction;  
             currentState = EnemyState.None;
             enemyAnimation.SetState(0);
+            endurance.ChangeEndurance(-enduranceDrain);
         }
 
         public void OnGettingAttacked(bool perfectAttack)
         {
-            float healthDrain = perfectAttack ? stats.damageTaken * 2 : stats.damageTaken;
+            float healthDrain = perfectAttack ? stats.damageTaken * perfectMultiplier : stats.damageTaken;
             health.ChangeHealth(-healthDrain);
             enemyAnimation.OnTakeDamage();
             Game.inst.state.OnEnemyAttacked();
@@ -91,16 +93,14 @@ namespace LudumDare50
 
         private void OnDeath()
         {
-            Debug.Log("enemy has died");
             Game.inst.OnEnemyDeath();
             StartCoroutine(DeathSequence());
         }
 
         private void OnExhaust()
         {
-            Debug.Log("enemy has exhausted");
             Game.inst.OnEnemyExhaust();
-            Destroy(gameObject);
+            StartCoroutine(ExhaustSequence());
         }
 
         private IEnumerator DeathSequence()
@@ -109,6 +109,14 @@ namespace LudumDare50
             isActive = false;
             yield return new WaitForSeconds(2f);
             StartCoroutine(enemyAnimation.FadeToDeadHumanSequence());
+        }
+
+        private IEnumerator ExhaustSequence()
+        {
+            enemyAnimation.SetState(5);
+            isActive = false;
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(enemyAnimation.FadeToExhaustedHumanSequence());
         }
     }
 }
