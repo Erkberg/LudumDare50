@@ -500,6 +500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4703333080548051214}
   - component: {fileID: 4703333080548051210}
+  - component: {fileID: 7238082269356332949}
   - component: {fileID: 4703333080548051221}
   - component: {fileID: 4703333080548051211}
   - component: {fileID: 4703333080548051208}
@@ -538,6 +539,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4703333080548051221}
+  flickerRenderers: {fileID: 7238082269356332949}
+--- !u!114 &7238082269356332949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703333080548051215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3b707152b5a164aa4e54822771a8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers:
+  - {fileID: 4703333080548051208}
+  flickerFrames: 4
 --- !u!95 &4703333080548051221
 Animator:
   serializedVersion: 4

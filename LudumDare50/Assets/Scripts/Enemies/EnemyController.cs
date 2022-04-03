@@ -85,6 +85,7 @@ namespace LudumDare50
         {
             float healthDrain = perfectAttack ? stats.damageTaken * 2 : stats.damageTaken;
             health.ChangeHealth(-healthDrain);
+            enemyAnimation.OnTakeDamage();
             Game.inst.state.OnEnemyAttacked();
         }
 

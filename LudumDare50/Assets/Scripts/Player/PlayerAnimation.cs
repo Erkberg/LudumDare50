@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ErksUnityLibrary;
 
 namespace LudumDare50
 {
     public class PlayerAnimation : MonoBehaviour
     {
         public Animator animator;
+        public FlickerRenderers flickerRenderers;
 
         private const string StateIntName = "state";
         private const string StateChangeTriggerName = "stateChange";
@@ -17,6 +19,11 @@ namespace LudumDare50
 
             if(stateId != 0)
                 animator.SetTrigger(StateChangeTriggerName);
+        }
+
+        public void OnTakeDamage()
+        {
+            flickerRenderers.StartFlicker(0.167f);
         }
     }
 }

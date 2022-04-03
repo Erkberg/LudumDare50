@@ -127,7 +127,8 @@ namespace LudumDare50
 
             if(!dodged)
             {
-                health.ChangeHealth(-damage);                
+                health.ChangeHealth(-damage);
+                playerAnimation.OnTakeDamage();
             }
             else
             {
