@@ -15,8 +15,9 @@ MonoBehaviour:
   level: 3
   attackTypes: 000000000100000002000000
   health: 100
-  damagePerAttack: 20
-  endurance: 300
+  damagePerAttack: 25
+  damageTaken: 20
+  endurance: 400
   endurancePerAction: 10
   actionDelay: 0.25
   attackStreak: 4

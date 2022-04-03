@@ -14,6 +14,7 @@ namespace LudumDare50
         public EnemyAnimation enemyAnimation;
         public Health health;
         public Endurance endurance;
+        public bool perfectDefenceAvailable;
 
         private float actionTimePassed;
         private int attackStreak;
@@ -21,6 +22,7 @@ namespace LudumDare50
         private bool isIdle;
 
         private float perfectMultiplier = 3f;
+        private float perfectDefenceWindow = 0.133f;
 
         private void Awake()
         {
@@ -72,7 +74,10 @@ namespace LudumDare50
             currentState = EnemyState.Attack;
             AttackType attackType = stats.attackTypes.GetRandomItem();
             enemyAnimation.SetState((int)attackType + 1);
-            yield return new WaitForSeconds(0.67f);
+            yield return new WaitForSeconds(0.67f - perfectDefenceWindow);
+            perfectDefenceAvailable = true;
+            yield return new WaitForSeconds(perfectDefenceWindow);
+            perfectDefenceAvailable = false;
             //Debug.Log(gameObject.name + " attacks with type " + attackType);
             bool perfectDodge = Game.inst.player.OnGettingAttacked(attackType, stats.damagePerAttack);
             yield return new WaitForSeconds(0.33f);
@@ -93,12 +98,14 @@ namespace LudumDare50
 
         private void OnDeath()
         {
+            StopAllCoroutines();
             Game.inst.OnEnemyDeath();
             StartCoroutine(DeathSequence());
         }
 
         private void OnExhaust()
         {
+            StopAllCoroutines();
             Game.inst.OnEnemyExhaust();
             StartCoroutine(ExhaustSequence());
         }
@@ -115,7 +122,7 @@ namespace LudumDare50
         {
             enemyAnimation.SetState(5);
             isActive = false;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             StartCoroutine(enemyAnimation.FadeToExhaustedHumanSequence());
         }
     }

@@ -77,10 +77,9 @@ namespace LudumDare50
             if ((!Game.inst.currentEnemy && stateId != 0))
                 return;
 
-            PlayerState newState = (PlayerState)stateId;
-
             if(CanChangeState(stateId))
             {
+                PlayerState newState = (PlayerState)stateId;
                 StopAllCoroutines();
                 currentState = newState;
                 durationInCurrentState = 0f;
@@ -145,7 +144,7 @@ namespace LudumDare50
 
         private IEnumerator AttackSequence()
         {
-            yield return new WaitForSeconds(GetDataByState(currentState).durationTillPerfect);
+            yield return new WaitForSeconds(0.62f);
             Attack();
         }
 
@@ -162,12 +161,27 @@ namespace LudumDare50
         private void OnDeath()
         {
             Debug.Log("you have died");
+            isActive = false;
             Game.inst.OnPlayerDeath();
         }
 
         private PlayerStateData GetDataByState(PlayerState state)
         {
             return stateData.Find(x => x.state == state);
+        }
+
+        public bool IsActionAvailable()
+        {
+            bool enemyAvailable = Game.inst.currentEnemy;
+            bool idle = currentState == PlayerState.None;
+            bool animCancelAvailable = currentState != PlayerState.None &&
+                durationInCurrentState > GetDataByState(currentState).durationTillCancelPossible;
+            return enemyAvailable && (idle || animCancelAvailable);
+        }
+
+        public bool IsPerfectAttackAvailable()
+        {
+            return currentState == PlayerState.Attack && perfectActionPossible && Game.inst.currentEnemy;
         }
     }
 }

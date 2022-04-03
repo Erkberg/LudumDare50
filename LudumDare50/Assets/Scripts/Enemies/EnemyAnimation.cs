@@ -75,7 +75,7 @@ namespace LudumDare50
             float alpha = 1f;
             while (alpha > 0f)
             {
-                alpha -= Time.deltaTime / 4f;
+                alpha -= Time.deltaTime / 3f;
                 fadeMeshRenderer.materials[0].SetColorA(alpha);
                 fadeMeshRenderer.materials[1].SetColorA(alpha);
                 humanMeshRenderer.materials[0].SetColorA(1f - alpha);

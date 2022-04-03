@@ -66,7 +66,7 @@ namespace LudumDare50
 
         public void Open(State state)
         {
-            Game.inst.ui.SetAllPlayerStateButtonsActive(false);
+            Game.inst.ui.SetBottomUiActive(false);
             currentState = state;
             holder.SetActive(true);
             Time.timeScale = 0f;
@@ -91,7 +91,7 @@ namespace LudumDare50
 
         public void Close()
         {
-            Game.inst.ui.SetAllPlayerStateButtonsActive(true);
+            Game.inst.ui.SetBottomUiActive(true);
             holder.SetActive(false);
             Time.timeScale = 1f;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using ErksUnityLibrary;
 
 namespace LudumDare50
 {
@@ -14,6 +15,44 @@ namespace LudumDare50
         public GameMenu menu;
         public List<PlayerStateButton> playerStateButtons;
         public List<TextById> storyTexts;
+        public GameObject bottomUiHolder;
+        public Image actionAvailableImage;
+
+        private void Update()
+        {
+            HandleActionImage();
+        }
+
+        private void HandleActionImage()
+        {
+            bool perfectAttackAvailable = Game.inst.player.IsPerfectAttackAvailable();            
+            bool actionAvailable = Game.inst.player.IsActionAvailable();
+            bool perfectDefenceAvailable = false;
+            if(Game.inst.currentEnemy)
+            {
+                perfectDefenceAvailable = Game.inst.currentEnemy.perfectDefenceAvailable;
+            }
+
+            if (perfectAttackAvailable || (perfectDefenceAvailable && actionAvailable))
+            {
+                SetActionAvailableImageAlpha(1f);
+            }
+            else if(actionAvailable)
+            {
+                SetActionAvailableImageAlpha(0.5f);
+            }
+            else
+            {
+                SetActionAvailableImageAlpha(0.0625f);
+            }
+        }
+
+        private void SetActionAvailableImageAlpha(float alpha)
+        {
+            Color color = actionAvailableImage.color;
+            color.a = alpha;
+            actionAvailableImage.color = color;
+        }
 
         public void OnPlayerStateChanged(PlayerState state)
         {
@@ -36,12 +75,13 @@ namespace LudumDare50
             }
         }
 
-        public void SetAllPlayerStateButtonsActive(bool active)
+        public void SetBottomUiActive(bool active)
         {
-            foreach (PlayerStateButton button in playerStateButtons)
+            bottomUiHolder.SetActive(active);
+            /*foreach (PlayerStateButton button in playerStateButtons)
             {
                 button.gameObject.SetActive(active);
-            }
+            }*/
         }
 
         public void SetStoryTextByLevel(int level)
