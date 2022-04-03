@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9934e0508cefdf43b77f83fa8355005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   currentState: 0
   currentAttackType: 0
   stats: {fileID: 11400000, guid: 4c39a36d12ebdab43a5d21f63c15067d, type: 2}
@@ -262,7 +263,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4703333079512683041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -0.55}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
