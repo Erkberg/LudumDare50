@@ -93,7 +93,7 @@ namespace LudumDare50
         {
             Debug.Log("enemy has died");
             Game.inst.OnEnemyDeath();
-            Destroy(gameObject);
+            StartCoroutine(DeathSequence());
         }
 
         private void OnExhaust()
@@ -101,6 +101,14 @@ namespace LudumDare50
             Debug.Log("enemy has exhausted");
             Game.inst.OnEnemyExhaust();
             Destroy(gameObject);
+        }
+
+        private IEnumerator DeathSequence()
+        {
+            enemyAnimation.SetState(4);
+            isActive = false;
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(enemyAnimation.FadeToDeadHumanSequence());
         }
     }
 }
