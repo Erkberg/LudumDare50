@@ -14,6 +14,8 @@ namespace LudumDare50
 
         private void LateUpdate()
         {
+            transform.position = new Vector3(Game.inst.player.transform.position.x + 2f, 1f, -11f);
+
             if (!moveSpeed.IsApproxEqual(0f))
             {
                 transform.AddPositionX(moveSpeed * Time.deltaTime);

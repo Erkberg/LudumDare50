@@ -70,8 +70,8 @@ namespace LudumDare50
         }
 
         private IEnumerator GoToNextEnemySequence()
-        {
-            ui.ClearStoryText();
+        {            
+            ui.ClearStoryText();            
             // Spawn next enemy
             float nextEnemyPositionX = (state.enemyLevel + 1) * 12;
             Vector3 nextEnemyPosition = new Vector3(nextEnemyPositionX, 0f, 0f);
@@ -83,13 +83,11 @@ namespace LudumDare50
             float moveSpeed = 4f;
             player.SetMoveSpeed(moveSpeed);            
             player.playerAnimation.SetState(5);
-            cam.SetMoveSpeed(moveSpeed);
             yield return null;
             player.Stop();
             yield return new WaitUntil(() => player.transform.position.x >= nextPlayerPositionX);
             player.SetMoveSpeed(0f);
             player.ChangeState(0);
-            cam.SetMoveSpeed(0f);
             ui.SetStoryTextByLevel(state.enemyLevel);
 
             currentEnemy = enemy;
@@ -101,7 +99,6 @@ namespace LudumDare50
             float moveSpeed = 3.33f;
             player.SetMoveSpeed(moveSpeed);            
             player.playerAnimation.SetState(5);
-            cam.SetMoveSpeed(moveSpeed);
             ui.ClearStoryText();
             yield return null;
             player.Stop();
@@ -109,7 +106,6 @@ namespace LudumDare50
             ui.SetStoryTextByEnding(state.endState);
             yield return new WaitForSeconds(6f);
             player.SetMoveSpeed(0f);
-            cam.SetMoveSpeed(0f);
             ui.OnGameEnd();
         }
     }

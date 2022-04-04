@@ -114,7 +114,7 @@ namespace LudumDare50
         {
             enemyAnimation.SetState(4);
             isActive = false;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             StartCoroutine(enemyAnimation.FadeToDeadHumanSequence());
         }
 
