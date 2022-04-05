@@ -76,7 +76,7 @@ namespace LudumDare50
             float nextEnemyPositionX = (state.enemyLevel + 1) * 12;
             Vector3 nextEnemyPosition = new Vector3(nextEnemyPositionX, 0f, 0f);
             EnemyController enemy = Instantiate(enemyPrefab, nextEnemyPosition, Quaternion.identity, worldHolder);
-            enemy.InitWithStats(state.GetNextEnemyStats());            
+            enemy.InitWithStats(state.GetNextEnemyStats());           
 
             // Move player and camera
             float nextPlayerPositionX = nextEnemyPositionX - 4f;

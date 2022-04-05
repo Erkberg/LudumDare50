@@ -100,6 +100,7 @@ namespace LudumDare50
         {
             StopAllCoroutines();
             Game.inst.OnEnemyDeath();
+            DisableUI();
             StartCoroutine(DeathSequence());
         }
 
@@ -107,7 +108,14 @@ namespace LudumDare50
         {
             StopAllCoroutines();
             Game.inst.OnEnemyExhaust();
+            DisableUI();
             StartCoroutine(ExhaustSequence());
+        }
+
+        private void DisableUI()
+        {
+            health.gameObject.SetActive(false);
+            endurance.gameObject.SetActive(false);
         }
 
         private IEnumerator DeathSequence()
