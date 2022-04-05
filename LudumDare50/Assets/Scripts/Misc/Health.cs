@@ -11,6 +11,7 @@ namespace LudumDare50
         public Image fillImage;
         public float maxHealth = 100f;
         public float currentHealth;
+        public ParticleSystem damageParticle;
 
         public Action onDeath;
 
@@ -39,7 +40,11 @@ namespace LudumDare50
             UpdateHealthUI();
 
             if (amount < 0f)
+            {
                 Game.inst.cam.screenshake.StartShake(amount / 100f, 0.1f);
+                if(damageParticle)
+                    damageParticle.Emit((int)(-amount / 6));
+            }                
         }
 
         public void UpdateHealthUI()
